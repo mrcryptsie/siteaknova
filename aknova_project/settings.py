@@ -137,6 +137,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static', # Le dossier source de vos assets
+    BASE_DIR / 'assets',
 ]
 
 STATIC_ROOT = BASE_DIR / 'staticfiles' # Le dossier de destination pour la production

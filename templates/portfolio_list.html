@@ -1,0 +1,71 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}Portfolio | Aknova Réalisations{% endblock title %}
+
+{% block meta %}
+  <meta name="description" content="Découvrez notre portfolio de projets environnementaux : études d'impact, analyses environnementales, et solutions durables au Bénin.">
+{% endblock meta %}
+
+{% block extra_css %}
+  <link href="{% static 'css/page-header.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body_class %}index-page{% endblock %} {% block content %}
+<main class="main">
+
+  <div class="page-title" data-aos="fade">
+    <div class="container d-lg-flex justify-content-between align-items-center">
+      <h1 class="mb-2 mb-lg-0">Nos Réalisations</h1>
+      <nav class="breadcrumbs">
+        <ol>
+          <li><a href="{% url 'index' %}">Accueil</a></li>
+          <li class="current">Portfolio</li>
+        </ol>
+      </nav>
+    </div>
+  </div><section id="portfolio" class="portfolio section isotope-layout">
+    <div class="container" data-aos="fade-up">
+
+      <div class="portfolio-filters-wrapper" data-aos="fade-up" data-aos-delay="100">
+        <ul class="portfolio-filters isotope-filters">
+          <li data-filter="*" class="filter-active">Tout</li>
+          {% for categorie in categories %}
+          <li data-filter=".filter-{{ categorie.nom|slugify }}">{{ categorie.nom }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+
+        {% for projet in projets %}
+        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-{{ projet.categorie.nom|slugify|default:'' }}">
+          
+          <div class="portfolio-card">
+            <div class="image-container">
+              {% if projet.image_principale %}
+                <img src="{{ projet.image_principale.url }}" class="img-fluid" alt="{{ projet.titre }}">
+              {% else %}
+                <img src="{% static 'img/1.jpg' %}" class="img-fluid" alt="Image par défaut">
+              {% endif %}
+              
+              <div class="overlay">
+                <div class="overlay-content">
+                  <a href="{{ projet.get_absolute_url }}" title="Voir le Projet"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="content">
+              <h3><a href="{{ projet.get_absolute_url }}">{{ projet.titre }}</a></h3>
+              <p>{{ projet.categorie.nom|default:"Projet" }}</p>
+            </div>
+          </div>
+        </div>{% empty %}
+        <div class="col-12 text-center">
+          <p>Aucun projet n'a été publié pour le moment.</p>
+        </div>
+        {% endfor %}
+
+      </div></div>
+  </section></main>
+{% endblock content %}

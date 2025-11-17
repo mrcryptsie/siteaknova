@@ -1,0 +1,55 @@
+{% load static %}
+<header id="header" class="header sticky-top">
+
+  <div class="topbar d-flex align-items-center dark-background">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+        <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:contact@aknova.bj">contact@aknova.bj</a></i>
+        <i class="bi bi-phone d-flex align-items-center ms-4"><span>+229 0197863864</span></i>
+      </div>
+      <div class="social-links d-none d-md-flex align-items-center">
+        <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
+        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+      </div>
+    </div>
+  </div><div class="branding d-flex align-items-cente">
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+      <a href="{% url 'index' %}" class="logo d-flex align-items-center">
+        <img src="{% static 'img/logo.png' %}" alt="Aknova Logo" style="height:40px; margin-right:10px;">
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="{% url 'index' %}" class="{% if request.resolver_match.url_name == 'index' %}active{% endif %}">Accueil</a></li>
+          <li><a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">À propos</a></li>
+          <li><a href="{% url 'services' %}" class="{% if request.resolver_match.url_name == 'services' %}active{% endif %}">Services</a></li>
+          <li><a href="{% url 'portfolio_list' %}" class="{% if request.resolver_match.url_name == 'portfolio_list' or request.resolver_match.url_name == 'portfolio_detail' %}active{% endif %}">Portfolio</a></li>
+          <li><a href="{% url 'team' %}" class="{% if request.resolver_match.url_name == 'team' %}active{% endif %}">Équipe</a></li>
+          <li class="dropdown"><a href="#"><span>Expertises & Articles</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="#">Publications Scientifiques</a></li>
+              <li><a href="#">Articles Blog</a></li>
+              <li><a href="#">Actualités</a></li>
+              <li class="dropdown"><a href="#"><span>Nos Expertises</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                <ul>
+                  <li><a href="#">Études d'Impact Environnemental</a></li>
+                  <li><a href="#">Analyses & Mesures</a></li>
+                  <li><a href="#">Ingénierie Durable</a></li>
+                  <li><a href="#">Recherche & Développement</a></li>
+                  <li><a href="#">Formations Spécialisées</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Ressources</a></li>
+            </ul>
+          </li>
+          <li><a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+    </div>
+  </div>
+
+</header>

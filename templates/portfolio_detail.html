@@ -1,0 +1,237 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}{{ projet.titre }} | Aknova Réalisations{% endblock title %}
+
+{% block meta %}
+  <meta name_:"description" content="{{ projet.sous_titre|truncatewords:25 }}">
+  <meta name_:"keywords" content="études environnementales, {{ projet.titre }}, Aknova, projets environnementaux, impact environnemental">
+{% endblock meta %}
+
+{% block extra_css %}
+  <link href="{% static 'css/page-header.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body_class %}portfolio-details-page{% endblock %}
+
+{% block content %}
+<main class="main">
+
+  <div class="page-title" data-aos="fade">
+    <div class="container d-lg-flex justify-content-between align-items-center">
+      <h1 class="mb-2 mb-lg-0">Détail du Projet</h1>
+      <nav class="breadcrumbs">
+        <ol>
+          <li><a href="{% url 'index' %}">Accueil</a></li>
+          <li><a href="{% url 'portfolio_list' %}">Portfolio</a></li>
+          <li class="current">{{ projet.titre|truncatewords:4 }}...</li>
+        </ol>
+      </nav>
+    </div>
+  </div><section id="portfolio-details" class="portfolio-details section">
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+      <div class="project-hero">
+        <div class="hero-content" data-aos="fade-up">
+          <div class="project-category">{{ projet.categorie.nom|default:"Réalisation" }}</div>
+          <h1 class="project-title">{{ projet.titre }}</h1>
+          <p class="project-subtitle">{{ projet.sous_titre }}</p>
+        </div>
+
+        <div class="project-meta-grid" data-aos="fade-up" data-aos-delay="200">
+          <div class="meta-column">
+            <div class="meta-label">Client</div>
+            <div class="meta-value">{{ projet.client|default:"N/A" }}</div>
+          </div>
+          <div class="meta-column">
+            <div class="meta-label">Durée</div>
+            <div class="meta-value">{{ projet.duree|default:"N/A" }}</div>
+          </div>
+          <div class="meta-column">
+            <div class="meta-label">Année</div>
+            <div class="meta-value">{{ projet.annee }}</div>
+          </div>
+          <div class="meta-column">
+            <div class="meta-label">Services</div>
+            <div class="meta-value">{{ projet.services_utilises|default:"N/A" }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="visual-showcase" data-aos="zoom-in" data-aos-delay="100">
+        <div class="main-visual">
+          <div class="portfolio-details-slider swiper init-swiper">
+            <script type="application/json" class="swiper-config">
+              {
+                "loop": true,
+                "speed": 600,
+                "autoplay": { "delay": 4000 },
+                "effect": "creative",
+                "creativeEffect": {
+                  "prev": { "shadow": false, "translate": ["-120%", 0, -500] },
+                  "next": { "shadow": false, "translate": ["120%", 0, -500] }
+                },
+                "slidesPerView": 1,
+                "navigation": {
+                  "nextEl": ".swiper-button-next",
+                  "prevEl": ".swiper-button-prev"
+                }
+              }
+            </script>
+            <div class="swiper-wrapper">
+              {% for image in projet.images_slider.all %}
+              <div class="swiper-slide">
+                <img src="{{ image.image.url }}" alt="{{ image.legende|default:projet.titre }}" class="img-fluid" loading="lazy">
+              </div>
+              {% empty %}
+              <div class="swiper-slide">
+                <img src="{% static 'img/1.jpg' %}" alt="Image par défaut" class="img-fluid" loading="lazy">
+              </div>
+              {% endfor %}
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <div class="row">
+          <div class="col-lg-8 offset-lg-2">
+            <div class="project-overview" data-aos="fade-up">
+              <h2>Aperçu du Projet</h2>
+              <p class="overview-text">{{ projet.apercu_projet|linebreaks }}</p>
+
+              <div class="challenge-solution">
+                <div class="challenge-block" data-aos="fade-up" data-aos-delay="100">
+                  <h3>Le Défi</h3>
+                  <p>{{ projet.le_defi|linebreaks }}</p>
+                </div>
+                <div class="solution-block" data-aos="fade-up" data-aos-delay="200">
+                  <h3>Notre Approche</h3>
+                  <p>{{ projet.notre_approche|linebreaks }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="metrics-showcase" data-aos="fade-up" data-aos-delay="100">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <div class="metrics-content">
+              <h3>Impact &amp; Résultats</h3>
+              <p>{{ projet.impact_resultats_texte|default:"L'application de notre méthodologie a permis d'atteindre des résultats significatifs." }}</p>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="metrics-grid">
+              {% for metrique in projet.metriques.all %}
+              <div class="metric-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:1 }}50">
+                <div class="metric-number">{{ metrique.valeur }}</div>
+                <div class="metric-label">{{ metrique.label }}</div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="technology-stack" data-aos="fade-up" data-aos-delay="100">
+        <div class="row">
+          <div class="col-lg-3">
+            <h3>Outils & Méthodes</h3>
+          </div>
+          <div class="col-lg-9">
+            <div class="tech-categories">
+              {% regroup projet.outils.all by categorie as outils_par_categorie %}
+              {% for categorie in outils_par_categorie %}
+              <div class="tech-category" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:1 }}50">
+                <div class="category-title">{{ categorie.grouper }}</div>
+                <div class="tech-list">
+                  {% for outil in categorie.list %}
+                  <span class="tech-item">{{ outil.nom }}</span>
+                  {% endfor %}
+                </div>
+              </div>
+              {% empty %}
+              <p>Les outils et méthodologies spécifiques sont détaillés dans le rapport final du projet.</p>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="process-gallery" data-aos="fade-up" data-aos-delay="100">
+        <h3>Processus d'Étude</h3>
+        <div class="gallery-masonry">
+          {% for image in projet.images_processus.all %}
+          <div class="gallery-item {% if image.est_large %}large{% endif %}" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:1 }}50">
+            <a href="{{ image.image.url }}" class="glightbox">
+              <img src="{{ image.image.url }}" alt="{{ image.legende }}" class="img-fluid" loading="lazy">
+            </a>
+            <div class="gallery-caption">{{ image.legende }}</div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="key-features-section" data-aos="fade-up" data-aos-delay="100">
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="features-intro">
+              <h3>Points Clés du Projet</h3>
+              <p>{{ projet.points_cles_description|default:"Notre approche méthodologique combine expertise scientifique, rigueur technique et engagement." }}</p>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="features-list">
+              {% for point in projet.points_cles.all %}
+              <div class="feature-row" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:1 }}50">
+                <div class="feature-icon">
+                  <i class="{{ point.icone }}"></i>
+                </div>
+                <div class="feature-content">
+                  <h4>{{ point.titre }}</h4>
+                  <p>{{ point.description }}</p>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-footer" data-aos="fade-up" data-aos-delay="200">
+        <div class="footer-navigation">
+          
+          {% if prev_project %}
+          <a href="{{ prev_project.get_absolute_url }}" class="nav-link prev-project">
+            <span class="nav-direction">Précédent</span>
+            <span class="nav-title">{{ prev_project.titre|truncatewords:4 }}...</span>
+          </a>
+          {% else %}
+          <span></span> {% endif %}
+          
+          <a href="{% url 'portfolio_list' %}" class="nav-link all-projects">
+            <i class="bi bi-grid-3x3-gap"></i>
+            <span>Tous les Projets</span>
+          </a>
+
+          {% if next_project %}
+          <a href="{{ next_project.get_absolute_url }}" class="nav-link next-project">
+            <span class="nav-direction">Suivant</span>
+            <span class="nav-title">{{ next_project.titre|truncatewords:4 }}...</span>
+          </a>
+          {% else %}
+          <span></span> {% endif %}
+
+        </div>
+      </div>
+
+    </div>
+
+  </section></main>
+{% endblock content %}

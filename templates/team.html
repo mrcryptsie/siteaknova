@@ -1,0 +1,121 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}Notre Équipe - Aknova{% endblock title %}
+
+{% block meta %}
+  <meta name="description" content="Découvrez l'équipe d'experts d'Aknova : Docteurs, Ingénieurs et Techniciens spécialisés dans l'environnement et l'innovation durable">
+  <meta name="keywords" content="équipe Aknova, experts environnement, ingénieurs Bénin, consultants environnement, analyses chimiques Afrique">
+{% endblock meta %}
+
+{% block extra_css %}
+  <style>
+    .team-member .member-img {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .team-member .member-img img {
+      transition: all 0.3s ease;
+    }
+
+    .team-member .social {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .team-member .social a {
+      color: #fff;
+      font-size: 24px;
+      transition: 0.3s;
+      padding: 8px;
+    }
+
+    .team-member .social a:hover {
+      /* var(--primary-color) n'est pas défini, utilisons var(--accent-color) de main.css */
+      color: var(--accent-color); 
+      transform: scale(1.1);
+    }
+
+    .team-member:hover .social {
+      opacity: 1;
+    }
+
+    .team-member:hover img {
+      transform: scale(1.1);
+    }
+  </style>
+{% endblock extra_css %}
+
+{% block body_class %}index-page{% endblock %}
+
+
+{% block content %}
+<main class="main">
+
+  <div class="page-title" data-aos="fade">
+    <div class="container d-lg-flex justify-content-between align-items-center">
+      <h1 class="mb-2 mb-lg-0">Notre équipe !</h1>
+      <nav class="breadcrumbs">
+        <ol>
+          <li><a href="{% url 'index' %}">Accueil</a></li>
+          <li class="current">Équipe</li>
+        </ol>
+      </nav>
+    </div>
+  </div><section class="team section">
+    <div class="container" data-aos="fade-up">
+      <div class="section-header text-center mb-5">
+        <h2>Une équipe d'experts passionnés</h2>
+        <p>Notre équipe combine expertise scientifique et expérience terrain pour répondre aux défis environnementaux et technologiques en Afrique.</p>
+      </div>
+
+      <div class="row justify-content-center">
+
+        {% for membre in membres_equipe %}
+        <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
+          <div class="team-member">
+            <div class="member-img">
+              <img src="{{ membre.image.url }}" class="img-fluid" alt="{{ membre.nom }}">
+              <div class="social">
+                {% if membre.lien_twitter %}
+                <a href="{{ membre.lien_twitter }}" target="_blank"><i class="bi bi-twitter-x"></i></a>
+                {% endif %}
+                {% if membre.lien_linkedin %}
+                <a href="{{ membre.lien_linkedin }}" target="_blank"><i class="bi bi-linkedin"></i></a>
+                {% endif %}
+                {% if membre.email %}
+                <a href="mailto:{{ membre.email }}"><i class="bi bi-envelope"></i></a>
+                {% endif %}
+              </div>
+            </div>
+            <div class="member-info text-center">
+              <h4>{{ membre.nom }}</h4>
+              <span>{{ membre.role }}</span>
+              <p>{{ membre.description }}</p>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center">
+            <p>La page de l'équipe est en cours de construction.</p>
+        </div>
+        {% endfor %}
+        </div>
+
+      <div class="team-cta text-center mt-5" data-aos="fade-up" data-aos-delay="400">
+        <p class="mb-4">Vous souhaitez collaborer avec notre équipe d'experts ?</p>
+        <a href="{% url 'contact' %}" class="btn-primary">Contactez-nous</a>
+      </div>
+
+    </div>
+  </section></main>
+{% endblock content %}

@@ -1,0 +1,59 @@
+/* Page Header */
+.page-header {
+  position: relative;
+  height: 60vh;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+.page-header .header-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.3;
+  z-index: 0;
+}
+
+.page-header .container {
+  z-index: 1;
+}
+
+.page-header .page-title {
+  color: var(--heading-color);
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.page-header .page-subtitle {
+  color: var(--heading-color);
+  font-size: 1.25rem;
+  max-width: 800px;
+  margin: 0 auto;
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    height: 50vh;
+    min-height: 300px;
+  }
+
+  .page-header .page-title {
+    font-size: 2.5rem;
+  }
+
+  .page-header .page-subtitle {
+    font-size: 1rem;
+  }
+}

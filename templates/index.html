@@ -1,0 +1,388 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}Aknova | Bureau d'études environnementales leader au Bénin{% endblock title %}
+
+{% block meta %}
+  <meta name="description" content="Aknova, votre partenaire en études environnementales au Bénin. Expertise en analyses environnementales, études d'impact et solutions durables pour l'environnement.">
+  <meta name="keywords" content="Aknova, bureau d'études environnementales, Bénin, analyses environnementales, études d'impact, environnement, durabilité">
+{% endblock meta %}
+
+{% block body_class %}index-page{% endblock %}
+
+
+{% block content %}
+<main class="main">
+
+  <section id="hero" class="hero section">
+
+    <div class="hero-content">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="content">
+              <h1>AKNOVA – Ingénierie, Expertise & Innovation</h1>
+              <p>Aknova accompagne les acteurs publics et privés dans la transformation durable de leurs projets grâce à la recherche appliquée, à l’ingénierie innovante et au conseil stratégique. Notre équipe de Docteurs, Ingénieurs et Techniciens propose des solutions performantes, responsables et adaptées aux défis environnementaux, technologiques et sociétaux.</p>
+              <div class="cta-group">
+                <a href="{% url 'about' %}" class="btn-primary">Découvrir Aknova</a>
+                <a href="mailto:contact@aknova.bj" class="btn-secondary">
+                  <i class="bi bi-envelope"></i>
+                  <span>Contactez-nous</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="hero-image">
+              <img src="{% static 'img/header.jpg' %}" alt="Aknova" class="img-fluid">
+              
+              <div class="floating-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="card-content">
+                  {% for stat in hero_stats %}
+                  <div class="metric">
+                    <span class="number">{{ stat.valeur }}</span>
+                    <span class="label">{{ stat.label }}</span>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-features">
+        <div class="container">
+          <div class="row">
+            {% for feature in hero_features %}
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
+              <div class="feature-item">
+                <div class="icon">
+                  <i class="{{ feature.icone }}"></i>
+                </div>
+                <h4>{{ feature.titre }}</h4>
+                <p>{{ feature.description }}</p>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="stats" class="stats section">
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+      <div class="row justify-content-center mb-5">
+        <div class="col-lg-8 text-center" data-aos="fade-up" data-aos-delay="200">
+          <h2 class="section-headline mb-4">Nos chiffres clés</h2>
+          <p class="section-description">Aknova en quelques indicateurs : expertise, réalisations et engagement pour l’innovation durable.</p>
+        </div>
+      </div>
+
+      <div class="stats-grid row g-0 justify-content-center">
+        <div class="col-lg-10">
+          <div class="stats-container">
+            {% for stat in stats_cles %}
+            <div class="stat-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
+              <div class="stat-content">
+                <div class="stat-number">
+                  <span data-purecounter-start="0" data-purecounter-end="{{ stat.valeur|cut:'+' }}" data-purecounter-duration="2" class="purecounter"></span>
+                  {% if '+' in stat.valeur %}+{% endif %}
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-label">{{ stat.label }}</div>
+                <p class="stat-description">{{ stat.description }}</p>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center mt-5">
+        <div class="col-lg-6 text-center" data-aos="fade-up" data-aos-delay="500">
+          <div class="achievement-badge">
+            <div class="badge-icon">
+              <i class="bi bi-award"></i>
+            </div>
+            <div class="badge-content">
+              <h4 class="badge-title">Engagement & Impact</h4>
+              <p class="badge-text">Aknova s’engage pour l’innovation, la rigueur scientifique et le développement durable en Afrique.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="clients" class="clients section">
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+      <div class="row gy-4">
+        {% for client in clients %}
+        <div class="col-xl-2 col-lg-3 col-md-4 col-6" data-aos="zoom-in" data-aos-delay="{{ forloop.counter }}50">
+          <div class="client-item">
+            <img src="{{ client.logo.url }}" class="img-fluid" alt="{{ client.nom }}">
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="testimonials" class="testimonials section light-background">
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+      <div class="testimonial-slider swiper init-swiper">
+        <script type="application/json" class="swiper-config">
+          {
+            "loop": true,
+            "speed": 600,
+            "autoplay": {
+              "delay": 4000
+            },
+            "slidesPerView": 1,
+            "spaceBetween": 30,
+            "navigation": {
+              "nextEl": ".swiper-button-next",
+              "prevEl": ".swiper-button-prev"
+            },
+            "breakpoints": {
+              "768": {
+                "slidesPerView": 2
+              },
+              "1200": {
+                "slidesPerView": 3
+              }
+            }
+          }
+        </script>
+        
+        <div class="swiper-wrapper">
+          {% for temoignage in temoignages %}
+          <div class="swiper-slide">
+            <div class="testimonial-item" data-aos="zoom-in" data-aos-delay="{{ forloop.counter }}00">
+              <div class="testimonial-header">
+                <img src="{{ temoignage.image.url }}" alt="{{ temoignage.nom }}" class="img-fluid" loading="lazy">
+                
+                <div class="rating">
+                  {% for i in "12345" %}
+                    {% if forloop.counter <= temoignage.rating %}
+                      <i class="bi bi-star-fill"></i>
+                    {% else %}
+                      <i class="bi bi-star"></i>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+              <div class="testimonial-body">
+                <p>"{{ temoignage.texte }}"</p>
+              </div>
+              <div class="testimonial-footer">
+                <h5>{{ temoignage.nom }}</h5>
+                <span>{{ temoignage.role }}</span>
+                <div class="quote-icon">
+                  <i class="bi bi-chat-quote-fill"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="swiper-navigation">
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="faq" class="faq section light-background">
+
+    <div class="container section-title" data-aos="fade-up">
+      <h2>F.A.Q</h2>
+      <p>Questions fréquentes sur Aknova et nos services</p>
+    </div>
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+      <div class="row justify-content-center">
+        <div class="col-lg-9">
+          <div class="faq-wrapper">
+            
+            {% for item in faqs %}
+            <div class="faq-item {% if item.est_active %}faq-active{% endif %}" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}50">
+              <div class="faq-header">
+                <span class="faq-number">0{{ forloop.counter }}</span>
+                <h4>{{ item.question }}</h4>
+                <div class="faq-toggle">
+                  <i class="bi bi-plus"></i>
+                  <i class="bi bi-dash"></i>
+                </div>
+              </div>
+              <div class="faq-content">
+                <div class="content-inner">
+                  <p>{{ item.reponse|safe }}</p>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="contact" class="contact section">
+    
+    <div class="container section-title" data-aos="fade-up">
+      <h2>Contact</h2>
+      <p>Contactez Aknova pour toute demande d’expertise, de collaboration ou d’information complémentaire. Notre équipe vous répond rapidement et avec professionnalisme.</p>
+    </div>
+    
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+      <div class="row align-items-stretch">
+        <div class="col-lg-7 order-lg-1 order-2" data-aos="fade-right" data-aos-delay="200">
+          <div class="contact-form-container">
+            <div class="form-intro">
+              <h2>Formulaire de contact</h2>
+              <p>Merci de préciser votre demande : expertise, étude, formation, partenariat ou autre. Nous vous répondrons dans les meilleurs délais.</p>
+            </div>
+
+            <form action="{% url 'contact' %}" method="post" class="contact-form">
+              {% csrf_token %}
+              
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-field">
+                    {{ contact_form.name }}
+                    <label for="userName" class="field-label">Nom</label>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-field">
+                    {{ contact_form.email }}
+                    <label for="userEmail" class="field-label">Email</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-field">
+                    {{ contact_form.phone }}
+                    <label for="userPhone" class="field-label">Téléphone</label>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-field">
+                    {{ contact_form.subject }}
+                    <label for="messageSubject" class="field-label">Objet</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-field message-field">
+                {{ contact_form.message }}
+                <label for="userMessage" class="field-label">Message</label>
+              </div>
+
+              <div class="my-3">
+                <div class="loading" style="display: none;">Envoi en cours…</div>
+                <div class="error-message" style="display: none;"></div>
+                <div class="sent-message" style="display: none;">Votre message a bien été envoyé. Merci pour votre confiance !</div>
+              </div>
+
+              <button type="submit" class="send-button">
+                Envoyer
+                <span class="button-arrow">→</span>
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div class="col-lg-5 order-lg-2 order-1" data-aos="fade-left" data-aos-delay="300">
+          <div class="contact-sidebar">
+            <div class="contact-header">
+              <h3>Contact direct</h3>
+              <p>L’équipe Aknova est disponible pour répondre à vos besoins, projets et questions spécifiques.</p>
+            </div>
+
+            <div class="contact-methods">
+              <div class="contact-method" data-aos="fade-in" data-aos-delay="400">
+                <div class="contact-icon">
+                  <i class="bi bi-envelope"></i>
+                </div>
+                <div class="contact-details">
+                  <span class="method-label">Email</span>
+                  <p><a href="mailto:contact@aknova.bj">contact@aknova.bj</a></p>
+                </div>
+              </div>
+              <div class="contact-method" data-aos="fade-in" data-aos-delay="450">
+                <div class="contact-icon">
+                  <i class="bi bi-telephone"></i>
+                </div>
+                <div class="contact-details">
+                  <span class="method-label">Téléphone / WhatsApp</span>
+                  <p><a href="tel:+2290197863864">+229 0197863864</a></p>
+                </div>
+              </div>
+              <div class="contact-method" data-aos="fade-in" data-aos-delay="500">
+                <div class="contact-icon">
+                  <i class="bi bi-globe"></i>
+                </div>
+                <div class="contact-details">
+                  <span class="method-label">Site web</span>
+                  <p><a href="https://www.aknova.bj" target="_blank">www.aknova.bj</a></p>
+                </div>
+              </div>
+
+              <div class="contact-method" data-aos="fade-in" data-aos-delay="550">
+                <div class="contact-icon">
+                  <i class="bi bi-clock"></i>
+                </div>
+                <div class="contact-details">
+                  <span class="method-label">Horaires</span>
+                  <p>Lundi - Vendredi : 9h00 - 18h00<br>Samedi : 10h00 - 16h00</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="connect-section" data-aos="fade-up" data-aos-delay="550">
+              <span class="connect-label">Suivez-nous</span>
+              <div class="social-links">
+                <a href="https://www.linkedin.com/company/aknova-tech" class="social-link" target="_blank">
+                  <i class="bi bi-linkedin"></i>
+                </a>
+                <a href="https://twitter.com/aknova_tech" class="social-link" target="_blank">
+                  <i class="bi bi-twitter-x"></i>
+                </a>
+                <a href="https://www.instagram.com/aknova.tech" class="social-link" target="_blank">
+                  <i class="bi bi-instagram"></i>
+                </a>
+                <a href="https://www.facebook.com/aknova.tech" class="social-link" target="_blank">
+                  <i class="bi bi-facebook"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+{% endblock content %}

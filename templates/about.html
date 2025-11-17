@@ -1,0 +1,146 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}À propos | Aknova - Expert en études environnementales{% endblock title %}
+
+{% block meta %}
+  <meta name="description" content="Découvrez l'histoire et l'expertise d'Aknova, leader des études environnementales au Bénin. Notre mission, nos valeurs et notre engagement pour l'environnement.">
+  <meta name="keywords" content="Aknova histoire, mission environnementale, expertise Bénin, bureau d'études, valeurs environnementales">
+{% endblock meta %}
+
+{% block body_class %}index-page{% endblock %}
+
+{% block content %}
+<main class="main">
+  
+  <div class="page-title" data-aos="fade">
+    <div class="container d-lg-flex justify-content-between align-items-center">
+      <h1 class="mb-2 mb-lg-0">En savoir plus sur nous !</h1>
+      <nav class="breadcrumbs">
+        <ol>
+          <li><a href="{% url 'index' %}">Accueil</a></li>
+          <li class="current">À propos</li>
+        </ol>
+      </nav>
+    </div>
+  </div><section id="about" class="about section">
+    <div class="container section-title" data-aos="fade-up">
+      <h2>À propos</h2>
+      <p>Aknova, société innovante spécialisée dans la recherche appliquée, l’ingénierie et le conseil stratégique.</p>
+    </div>
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+      <div class="row">
+        <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
+          <div class="content">
+            
+            <h2>{{ page_about.mission_titre }}</h2>
+            <p class="lead">{{ page_about.mission_texte|safe|linebreaks }}</p>
+            
+            <h2 class="mt-4">{{ page_about.vision_titre }}</h2>
+            <p>{{ page_about.vision_texte|safe|linebreaks }}</p>
+            
+            <h2 class="mt-4">{{ page_about.equipe_titre }}</h2>
+            <p>{{ page_about.equipe_texte|safe|linebreaks }}</p>
+            
+            <div class="cta-section" data-aos="fade-up" data-aos-delay="300">
+              <a href="{% url 'contact' %}" class="btn-link">Contactez-nous <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
+          <div class="image-container">
+            
+            {% if page_about.image %}
+              <img src="{{ page_about.image.url }}" alt="À propos d'Aknova" class="img-fluid">
+            {% else %}
+              <img src="{% static 'img/4.jpg' %}" alt="À propos d'Aknova" class="img-fluid">
+            {% endif %}
+            
+            <div class="image-overlay">
+              <div class="overlay-content">
+                <i class="bi bi-award"></i>
+                <div class="overlay-text">
+                  <h4>{{ page_about.image_overlay_titre }}</h4>
+                  <p>{{ page_about.image_overlay_texte }}</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="clients" class="clients section">
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+      <div class="row gy-4">
+        {% for client in clients %}
+        <div class="col-xl-2 col-lg-3 col-md-4 col-6" data-aos="zoom-in" data-aos-delay="{{ forloop.counter }}50">
+          <div class="client-item">
+            <img src="{{ client.logo.url }}" class="img-fluid" alt="{{ client.nom }}">
+          </div>
+        </div>{% endfor %}
+      </div>
+
+    </div>
+  </section><section id="testimonials" class="testimonials section light-background">
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+      <div class="testimonial-slider swiper init-swiper">
+        <script type="application/json" class="swiper-config">
+          {
+            "loop": true,
+            "speed": 600,
+            "autoplay": { "delay": 4000 },
+            "slidesPerView": 1,
+            "spaceBetween": 30,
+            "navigation": {
+              "nextEl": ".swiper-button-next",
+              "prevEl": ".swiper-button-prev"
+            },
+            "breakpoints": {
+              "768": { "slidesPerView": 2 },
+              "1200": { "slidesPerView": 3 }
+            }
+          }
+        </script>
+        
+        <div class="swiper-wrapper">
+          {% for temoignage in temoignages %}
+          <div class="swiper-slide">
+            <div class="testimonial-item" data-aos="zoom-in" data-aos-delay="{{ forloop.counter }}00">
+              <div class="testimonial-header">
+                <img src="{{ temoignage.image.url }}" alt="{{ temoignage.nom }}" class="img-fluid" loading="lazy">
+
+                <div class="rating">
+                  {% for i in "12345" %}
+                    {% if forloop.counter <= temoignage.rating %}
+                      <i class="bi bi-star-fill"></i>
+                    {% else %}
+                      <i class="bi bi-star"></i>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+                </div>
+              <div class="testimonial-body">
+                <p>"{{ temoignage.texte }}"</p>
+              </div>
+              <div class="testimonial-footer">
+                <h5>{{ temoignage.nom }}</h5>
+                <span>{{ temoignage.role }}</span>
+                <div class="quote-icon">
+                  <i class="bi bi-chat-quote-fill"></i>
+                </div>
+              </div>
+            </div>
+          </div>{% endfor %}
+        </div>
+        <div class="swiper-navigation">
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+      </div>
+    </div>
+  </section></main>
+{% endblock content %}

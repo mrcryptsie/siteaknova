@@ -1,0 +1,177 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}Contact | Aknova - Bureau d'études environnementales Bénin{% endblock title %}
+
+{% block meta %}
+  <meta name="description" content="Contactez Aknova pour vos projets environnementaux au Bénin. Notre équipe d'experts est à votre écoute pour répondre à vos besoins.">
+  <meta name="keywords" content="contact Aknova, bureau d'études Bénin, consultation environnementale, devis environnement">
+{% endblock meta %}
+
+{% block body_class %}index-page{% endblock %}
+
+{% block content %}
+<main class="main">
+
+  <div class="page-title" data-aos="fade">
+    <div class="container d-lg-flex justify-content-between align-items-center">
+      <h1 class="mb-2 mb-lg-0">Nous contacter</h1>
+      <nav class="breadcrumbs">
+        <ol>
+          <li><a href="{% url 'index' %}">Accueil</a></li>
+          <li class="current">Contact</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <section id="contact" class="contact section">
+    
+    <div class="container section-title" data-aos="fade-up">
+      <h2>Contact</h2>
+      <p>Contactez Aknova pour toute demande d’expertise, de collaboration ou d’information complémentaire. Notre équipe vous répond rapidement et avec professionnalisme.</p>
+    </div>
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+      <div class="row align-items-stretch">
+        <div class="col-lg-7 order-lg-1 order-2" data-aos="fade-right" data-aos-delay="200">
+          <div class="contact-form-container">
+            <div class="form-intro">
+              <h2>Formulaire de contact</h2>
+              <p>Merci de préciser votre demande : expertise, étude, formation, partenariat ou autre. Nous vous répondrons dans les meilleurs délais.</p>
+            </div>
+
+            <form action="{% url 'contact' %}" method="post" class="contact-form">
+              {% csrf_token %}
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-field">
+                    {{ contact_form.name }}
+                    <label for="userName" class="field-label">Nom</label>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-field">
+                    {{ contact_form.email }}
+                    <label for="userEmail" class="field-label">Email</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-field">
+                    {{ contact_form.phone }}
+                    <label for="userPhone" class="field-label">Téléphone</label>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-field">
+                    {{ contact_form.subject }}
+                    <label for="messageSubject" class="field-label">Objet</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-field message-field">
+                {{ contact_form.message }}
+                <label for="userMessage" class="field-label">Message</label>
+              </div>
+
+              <div class="my-3">
+                <div class="loading" style="display: none;">Envoi en cours…</div>
+                
+                {% if contact_form.errors %}
+                <div class="error-message" style="display: block;">
+                  Il y a eu une erreur. Veuillez vérifier les champs.
+                </div>
+                {% endif %}
+
+                {% if success %}
+                <div class="sent-message" style="display: block;">Votre message a bien été envoyé. Merci pour votre confiance !</div>
+                {% endif %}
+              </div>
+
+              <button type="submit" class="send-button">
+                Envoyer
+                <span class="button-arrow">→</span>
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div class="col-lg-5 order-lg-2 order-1" data-aos="fade-left" data-aos-delay="300">
+          <div class="contact-sidebar">
+            <div class="contact-header">
+              <h3>Contact direct</h3>
+              <p>L’équipe Aknova est disponible pour répondre à vos besoins, projets et questions spécifiques.</p>
+            </div>
+
+            <div class="contact-methods">
+              <div class="contact-method" data-aos="fade-in" data-aos-delay="400">
+                <div class="contact-icon">
+                  <i class="bi bi-envelope"></i>
+                </div>
+                <div class="contact-details">
+                  <span class="method-label">Email</span>
+                  <p><a href="mailto:contact@aknova.bj">contact@aknova.bj</a></p>
+                </div>
+              </div>
+              <div class="contact-method" data-aos="fade-in" data-aos-delay="450">
+                <div class="contact-icon">
+                  <i class="bi bi-telephone"></i>
+                </div>
+                <div class="contact-details">
+                  <span class="method-label">Téléphone / WhatsApp</span>
+                  <p><a href="tel:+2290197863864">+229 0197863864</a></p>
+                </div>
+              </div>
+              <div class="contact-method" data-aos="fade-in" data-aos-delay="500">
+                <div class="contact-icon">
+                  <i class="bi bi-globe"></i>
+                </div>
+                <div class="contact-details">
+                  <span class="method-label">Site web</span>
+                  <p><a href="https://www.aknova.bj" target="_blank">www.aknova.bj</a></p>
+                </div>
+              </div>
+
+              <div class="contact-method" data-aos="fade-in" data-aos-delay="550">
+                <div class="contact-icon">
+                  <i class="bi bi-clock"></i>
+                </div>
+                <div class="contact-details">
+                  <span class="method-label">Horaires</span>
+                  <p>Lundi - Vendredi : 9h00 - 18h00<br>Samedi : 10h00 - 16h00</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="connect-section" data-aos="fade-up" data-aos-delay="550">
+              <span class="connect-label">Suivez-nous</span>
+              <div class="social-links">
+                <a href="https://www.linkedin.com/company/aknova-tech" class="social-link" target="_blank">
+                  <i class="bi bi-linkedin"></i>
+                </a>
+                <a href="https://twitter.com/aknova_tech" class="social-link" target="_blank">
+                  <i class="bi bi-twitter-x"></i>
+                </a>
+                <a href="https://www.instagram.com/aknova.tech" class="social-link" target="_blank">
+                  <i class="bi bi-instagram"></i>
+                </a>
+                <a href="https://www.facebook.com/aknova.tech" class="social-link" target="_blank">
+                  <i class="bi bi-facebook"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+{% endblock content %}

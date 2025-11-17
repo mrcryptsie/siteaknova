@@ -1,0 +1,16 @@
+# Fichiers d'environnement
+.env
+.env.*
+
+# Fichiers Python
+*.pyc
+__pycache__/
+
+# Base de données
+db.sqlite3
+
+# Média
+media/
+
+# Environnement virtuel
+venv/

@@ -1,0 +1,55 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}Services | Aknova - Solutions environnementales complètes{% endblock title %}
+
+{% block meta %}
+  <meta name="description" content="Services d'études environnementales, analyses et conseils au Bénin. Études d'impact, analyses chimiques, formations et solutions durables pour votre entreprise.">
+  <meta name="keywords" content="services environnementaux, études d'impact, analyses chimiques, formation environnementale, Bénin, Aknova services">
+{% endblock meta %}
+
+{% block extra_css %}
+  <link href="{% static 'css/page-header.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body_class %}index-page{% endblock %}
+
+
+{% block content %}
+<main class="main">
+
+  <div class="page-title" data-aos="fade">
+    <div class="container d-lg-flex justify-content-between align-items-center">
+      <h1 class="mb-2 mb-lg-0">Nos Services</h1>
+      <nav class="breadcrumbs">
+        <ol>
+          <li><a href="{% url 'index' %}">Accueil</a></li>
+          <li class="current">Nos Services</li>
+        </ol>
+      </nav>
+    </div>
+  </div><section id="featured-services" class="featured-services section light-background" style="margin-top: 80px; padding-top: 60px;">
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+      <div class="row g-5">
+        
+        {% for service in services_list %}
+        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:1 }}00">
+          <div class="service-item">
+            <div class="service-icon"><i class="{{ service.icone }}"></i></div>
+            <h3>{{ service.titre }}</h3>
+            <p>{{ service.description }}</p>
+          </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+          <p class="text-center">Aucun service n'est disponible pour le moment.</p>
+        </div>
+        {% endfor %}
+
+      </div>
+
+    </div>
+
+  </section></main>
+{% endblock content %}

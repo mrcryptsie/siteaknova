@@ -1,12 +1,14 @@
 {
+  "builds": [
+    {
+      "src": "aknova_project/wsgi.py",
+      "use": "@vercel/python"
+    }
+  ],
   "routes": [
     {
       "src": "/static/(.*)",
       "dest": "/static/$1"
-    },
-    {
-      "src": "/media/(.*)",
-      "dest": "/media/$1"
     },
     {
       "src": "/(.*)",

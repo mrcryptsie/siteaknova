@@ -25,7 +25,7 @@ if os.path.exists(os.path.join(BASE_DIR, '.env')):
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', 'localhost', 'aknova.bj', "www.aknova.bj"]
 
 
 # Application definition

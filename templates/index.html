@@ -52,23 +52,42 @@
         </div>
       </div>
 
-      <div class="hero-features">
+      <section id="values" class="values section py-5 bg-light">
         <div class="container">
-          <div class="row">
+          
+          <!-- titre section -->
+          <div class="row justify-content-center mb-5">
+            <div class="col-lg-8 text-center">
+              <h2 class="section-headline">Nos Valeurs</h2>
+              <p class="text-muted">Les principes qui guident notre action et notre engagement pour l’environnement et l’innovation.</p>
+            </div>
+          </div>
+      
+          <!-- cartes valeurs -->
+          <div class="row g-4">
             {% for feature in hero_features %}
-            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
-              <div class="feature-item">
-                <div class="icon">
-                  <i class="{{ feature.icone }}"></i>
+            <div class="col-lg-3 col-md-6">
+              <div class="card border-0 shadow-sm text-center h-100 p-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
+      
+                <!-- rond vert avec icône -->
+                <div class="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle bg-success" 
+                     style="width:70px; height:70px;">
+                  <i class="{{ feature.icone }} text-white fs-3"></i>
                 </div>
-                <h4>{{ feature.titre }}</h4>
-                <p>{{ feature.description }}</p>
+      
+                <!-- titre et description -->
+                <h5 class="fw-bold">{{ feature.titre }}</h5>
+                <p class="text-muted">{{ feature.description }}</p>
+                
               </div>
             </div>
             {% endfor %}
           </div>
+      
         </div>
-      </div>
+      </section>
+      
+      
 
     </div>
 
@@ -94,7 +113,12 @@
                   <span data-purecounter-start="0" data-purecounter-end="{{ stat.valeur|cut:'+' }}" data-purecounter-duration="2" class="purecounter"></span>
                   {% if '+' in stat.valeur %}+{% endif %}
                 </div>
-                <div class="stat-divider"></div>
+                <div class="d-flex justify-content-center my-3">
+                  <span class="badge rounded-circle bg-success d-flex align-items-center justify-content-center" style="width:34px;height:34px;">
+                    <i class="bi bi-leaf-fill text-white"></i>
+                  </span>
+                </div>
+                
                 <div class="stat-label">{{ stat.label }}</div>
                 <p class="stat-description">{{ stat.description }}</p>
               </div>
@@ -138,6 +162,67 @@
     </div>
 
   </section>
+
+  <section id="partners" class="partners section py-5 bg-light">
+    <div class="container">
+      <!-- titre -->
+      <div class="row justify-content-center mb-4">
+        <div class="col-lg-8 text-center">
+          <h2 class="section-headline">Ils nous font confiance</h2>
+          <p class="text-muted">Nos partenaires et clients qui soutiennent nos projets.</p>
+        </div>
+      </div>
+  
+      <!-- slider de logos -->
+      <div class="partners-slider overflow-hidden">
+        <div class="d-flex align-items-center gap-4 animate-slide">
+          {% for client in clients %}
+          <div class="partner-item flex-shrink-0">
+            <img src="{{ client.logo.url }}" alt="{{ client.nom }}" class="img-fluid" style="max-height: 80px;">
+          </div>
+          {% endfor %}
+          <!-- répéter pour boucle infinie -->
+          {% for client in clients %}
+          <div class="partner-item flex-shrink-0">
+            <img src="{{ client.logo.url }}" alt="{{ client.nom }}" class="img-fluid" style="max-height: 80px;">
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  
+    <style>
+      /* wrapper pour masquer le débordement */
+      .partners-slider {
+        position: relative;
+        overflow: hidden;
+      }
+  
+      /* animation horizontale */
+      .animate-slide {
+        display: flex;
+        gap: 2rem;
+        animation: slide 20s linear infinite;
+      }
+  
+      @keyframes slide {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); } /* moitié de la largeur totale (car on répète les logos) */
+      }
+  
+      .partner-item img {
+        filter: grayscale(0.3);
+        opacity: 0.8;
+        transition: all 0.3s ease;
+      }
+  
+      .partner-item img:hover {
+        filter: grayscale(0);
+        opacity: 1;
+      }
+    </style>
+  </section>
+  
 
   <section id="testimonials" class="testimonials section light-background">
 

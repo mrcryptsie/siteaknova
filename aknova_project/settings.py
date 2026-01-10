@@ -120,9 +120,16 @@ STORAGES = {
     },
 }
 
-# Media files
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+# settings.py
+
+# URL "virtuelle" pour Django (optionnelle, souvent pour admin)
+MEDIA_URL = "/media/"
+
+# On ne définit pas de MEDIA_ROOT local
+# MEDIA_ROOT = BASE_DIR / 'media'   <-- supprimer ou commenter
+
+# Backend de stockage pour envoyer les fichiers sur Supabase
+DEFAULT_FILE_STORAGE = "core.storage_backends.SupabaseStorage"
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

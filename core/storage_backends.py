@@ -1,21 +1,46 @@
 # core/storage_backends.py
-from supabase import create_client
+
 from django.core.files.storage import Storage
 from django.core.files.base import ContentFile
+from supabase import create_client
+from django.conf import settings
+import os
 
 class SupabaseStorage(Storage):
+    """
+    Django Storage backend pour Supabase
+    Compatible Django 5 / Vercel / Admin
+    """
+
     def __init__(self):
-        url = "https://psboxeqyrgmzienrsvhf.supabase.co"  # remplace par ton URL
-        key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBzYm94ZXF5cmdtemllbnJzdmhmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgwNzM0OTEsImV4cCI6MjA4MzY0OTQ5MX0.GK86ZOdBueEhDupbrjHbUYABg4-Mq1O_Zw7slgxU_e0"                     # remplace par ta clé
-        self.client = create_client(url, key)
-        self.bucket = "media"  # nom de ton bucket Supabase
+        supabase_url = os.environ.get("SUPABASE_URL")
+        supabase_key = os.environ.get("SUPABASE_ANON_KEY")
+
+        if not supabase_url.endswith("/"):
+            supabase_url += "/"
+
+        self.client = create_client(supabase_url, supabase_key)
+        self.bucket = "media"
 
     def _save(self, name, content):
-        # upload sur Supabase
         data = content.read()
-        self.client.storage.from_(self.bucket).upload(name, data)
+
+        # ⚠️ upsert DOIT être un paramètre nommé
+        self.client.storage.from_(self.bucket).upload(
+            path=name,
+            file=data,
+            file_options={"upsert": "true"}  # STRING, pas bool
+        )
+
         return name
 
+    def exists(self, name):
+        # Django ne doit jamais bloquer l’upload
+        return False
+
     def url(self, name):
-        # URL publique du fichier
         return self.client.storage.from_(self.bucket).get_public_url(name)
+
+    def open(self, name, mode="rb"):
+        data = self.client.storage.from_(self.bucket).download(name)
+        return ContentFile(data)

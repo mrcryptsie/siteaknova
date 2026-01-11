@@ -2,10 +2,12 @@
 
 from django.core.files.storage import Storage
 from django.core.files.base import ContentFile
+from django.utils.deconstruct import deconstructible
 from supabase import create_client
 from django.conf import settings
 import os
 
+@deconstructible
 class SupabaseStorage(Storage):
     """
     Django Storage backend pour Supabase

@@ -8,7 +8,15 @@ from core.storage_backends import SupabaseStorage  # <-- import SupabaseStorage
 # ===============================================
 
 class HeroFeature(models.Model):
-    icone = models.CharField(max_length=50, help_text="Nom de l'icône Bootstrap (ex: 'bi bi-flask')")
+    # --- MODIFICATION START : Changement de CharField à ImageField ---
+    icone = models.ImageField(
+        upload_to='hero_features/', 
+        storage=SupabaseStorage(), 
+        verbose_name="Icône / Image",
+        help_text="Upload une image (PNG, SVG, JPG) qui sera affichée en blanc sur fond vert."
+    )
+    # --- MODIFICATION END ---
+    
     titre = models.CharField(max_length=100)
     description = models.TextField()
     ordre = models.PositiveIntegerField(default=0)
